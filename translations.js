@@ -66,12 +66,12 @@ const translations = {
         shortDescription: "Modern, bright and spacious apartment, ideal for a comfortable stay with family or friends.",
         description: "Modern, bright and spacious apartment, ideal for a comfortable stay with family or friends. Just a stone's throw from the new bus station, shops, cafes and main city routes.",
         features: [
-          "🛏 2 comfortable bedrooms",
-          "🛁 Modern bathroom",
-          "🍽 Fully equipped kitchen",
-          "🛋 Spacious & elegant living room",
-          "🚗 Underground parking",
-          "🛡 Quiet & secure residence"
+          "2 comfortable bedrooms",
+          "Modern bathroom",
+          "Fully equipped kitchen",
+          "Spacious & elegant living room",
+          "Underground parking",
+          "Quiet & secure residence"
         ]
       },
       2: {
@@ -80,12 +80,12 @@ const translations = {
         shortDescription: "Central and practical apartment, immediately close to shops, cafes and transport.",
         description: "Central and practical apartment, immediately close to shops, cafes and transport.",
         features: [
-          "🛏️ 2 bedrooms",
-          "🛋️ Comfortable living room",
-          "🍽️ Equipped kitchen with bar",
-          "🚿 Bathroom with washing machine",
-          "🌿 Pleasant small balcony",
-          "🅿️ Street parking"
+          "2 bedrooms",
+          "Comfortable living room",
+          "Equipped kitchen with bar",
+          "Bathroom with washing machine",
+          "Pleasant small balcony",
+          "Street parking"
         ]
       },
       3: {
@@ -94,29 +94,29 @@ const translations = {
         shortDescription: "Modern apartment 10 min from downtown, in a recent residence, perfect for quiet stays.",
         description: "Modern apartment 10 min from downtown, in a recent residence, perfect for quiet and well-located stays.",
         features: [
-          "🛏️ 2 bedrooms",
-          "– Bedroom 1: Double bed",
-          "– Bedroom 2: 2 single beds (incl. 1 pull-out)",
-          "🚿 Bathroom with walk-in shower",
-          "🍽️ Fully equipped kitchen",
-          "📺 Bright and comfortable living room",
-          "🅿️ Street parking"
+          "2 bedrooms",
+          "Bedroom 1: Double bed",
+          "Bedroom 2: 2 single beds (incl. 1 pull-out)",
+          "Bathroom with walk-in shower",
+          "Fully equipped kitchen",
+          "Bright and comfortable living room",
+          "Street parking"
         ]
       },
       4: {
         title: "Tangier – Ghandouri District",
-        location: "☕ Just 2 mins from Cappuccino!",
+        location: "Just 2 mins from Cappuccino!",
         shortDescription: "Bright apartment with large terrace & pool, ideal for a peaceful seaside stay.",
         description: "Bright apartment with large terrace & pool, ideal for a peaceful seaside stay.",
         features: [
-          "🛏️ 2 comfortable bedrooms",
-          "🚿 2 bathrooms with walk-in shower",
-          "❄️ Air conditioning",
-          "🍽️ Fully equipped kitchen",
-          "🛋️ Spacious and elegant living room",
-          "🪴 Terrace perfect for relaxing",
-          "🚗 Private garage",
-          "🛡️ 24/7 Secure residence"
+          "2 comfortable bedrooms",
+          "2 bathrooms with walk-in shower",
+          "Air conditioning",
+          "Fully equipped kitchen",
+          "Spacious and elegant living room",
+          "Terrace perfect for relaxing",
+          "Private garage",
+          "24/7 Secure residence"
         ]
       },
       5: {
@@ -125,15 +125,15 @@ const translations = {
         shortDescription: "Bright and recent apartment, ideally located opposite the new Tangier stadium.",
         description: "Bright and recent apartment, ideally located opposite the new Tangier stadium. Perfect for a comfortable stay, close to everything: bus station, shops, cafes and quick access to main routes.",
         features: [
-          "🛏️ 2 comfortable bedrooms",
-          "– Bedroom 1: Double bed",
-          "– Bedroom 2: 2 single beds (incl. 1 pull-out)",
-          "🛁 Modern bathroom",
-          "❄️ Air conditioning",
-          "🍽️ Fully equipped kitchen",
-          "🛋️ Spacious & elegant living room",
-          "🌅 Large terrace for relaxing",
-          "🛡️ Quiet & secure residence"
+          "2 comfortable bedrooms",
+          "Bedroom 1: Double bed",
+          "Bedroom 2: 2 single beds (incl. 1 pull-out)",
+          "Modern bathroom",
+          "Air conditioning",
+          "Fully equipped kitchen",
+          "Spacious & elegant living room",
+          "Large terrace for relaxing",
+          "Quiet & secure residence"
         ]
       }
     },
@@ -246,12 +246,12 @@ const translations = {
         shortDescription: "Appartement moderne, lumineux et spacieux, idéal pour un séjour confortable en famille ou entre amis.",
         description: "Appartement moderne, lumineux et spacieux, idéal pour un séjour confortable en famille ou entre amis. À deux pas de la nouvelle gare routière, des commerces, cafés et principaux axes de la ville.",
         features: [
-          "🛏 2 chambres confortables",
-          "🛁 Salle de bain moderne",
-          "🍽 Cuisine entièrement équipée",
-          "🛋 Salon spacieux & élégant",
-          "🚗 Parking souterrain",
-          "🛡 Résidence calme & sécurisée"
+          "2 chambres confortables",
+          "Salle de bain moderne",
+          "Cuisine entièrement équipée",
+          "Salon spacieux & élégant",
+          "Parking souterrain",
+          "Résidence calme & sécurisée"
         ]
       },
       2: {
@@ -260,12 +260,12 @@ const translations = {
         shortDescription: "Appartement central et pratique, à proximité immédiate des commerces, cafés et transports.",
         description: "Appartement central et pratique, à proximité immédiate des commerces, cafés et transports.",
         features: [
-          "🛏️ 2 chambres",
-          "🛋️ Salon confortable",
-          "🍽️ Cuisine équipée avec bar et tabourets",
-          "🚿 Salle de bain avec lave-linge",
-          "🌿 Petit balcon agréable",
-          "🅿️ Stationnement dans la rue"
+          "2 chambres",
+          "Salon confortable",
+          "Cuisine équipée avec bar et tabourets",
+          "Salle de bain avec lave-linge",
+          "Petit balcon agréable",
+          "Stationnement dans la rue"
         ]
       },
       3: {
@@ -274,29 +274,29 @@ const translations = {
         shortDescription: "Appartement moderne à 10 min du centre-ville, dans une résidence récente, parfait pour les séjours tranquilles.",
         description: "Appartement moderne à 10 min du centre-ville, dans une résidence récente, parfait pour les séjours tranquilles et bien situés.",
         features: [
-          "🛏️ 2 chambres",
-          "– Chambre 1 : lit double",
-          "– Chambre 2 : 2 lits simples dont 1 lit tiroir (3 couchages)",
-          "🚿 Salle de bain avec douche à l'italienne",
-          "🍽️ Cuisine entièrement équipée",
-          "📺 Salon lumineux et confortable",
-          "🅿️ Stationnement dans la rue"
+          "2 chambres",
+          "Chambre 1 : lit double",
+          "Chambre 2 : 2 lits simples dont 1 lit tiroir (3 couchages)",
+          "Salle de bain avec douche à l'italienne",
+          "Cuisine entièrement équipée",
+          "Salon lumineux et confortable",
+          "Stationnement dans la rue"
         ]
       },
       4: {
         title: "Tanger – Quartier Ghandouri",
-        location: "☕ À seulement 2 minutes du Cappuccino !",
+        location: "À seulement 2 minutes du Cappuccino !",
         shortDescription: "Appartement lumineux avec grande terrasse & piscine, idéal pour un séjour paisible en bord de mer.",
         description: "Appartement lumineux avec grande terrasse & piscine, idéal pour un séjour paisible en bord de mer.",
         features: [
-          "🛏️ 2 chambres confortables",
-          "🚿 2 salles de bain avec douche à l'italienne",
-          "❄️ Climatisation",
-          "🍽️ Cuisine entièrement équipée",
-          "🛋️ Salon spacieux et élégant",
-          "🪴 Terrasse parfaite pour se détendre",
-          "🚗 Garage privé",
-          "🛡️ Résidence sécurisée 24h/24"
+          "2 chambres confortables",
+          "2 salles de bain avec douche à l'italienne",
+          "Climatisation",
+          "Cuisine entièrement équipée",
+          "Salon spacieux et élégant",
+          "Terrasse parfaite pour se détendre",
+          "Garage privé",
+          "Résidence sécurisée 24h/24"
         ]
       },
       5: {
@@ -305,15 +305,15 @@ const translations = {
         shortDescription: "Appartement lumineux et récent, idéalement situé en face du nouveau stade de Tanger.",
         description: "Appartement lumineux et récent, idéalement situé en face du nouveau stade de Tanger. Parfait pour un séjour confortable, proche de tout : gare routière, commerces, cafés et accès rapides aux principaux axes de la ville.",
         features: [
-          "🛏️ 2 chambres confortables",
-          "– Chambre 1 : lit double",
-          "– Chambre 2 : 2 lits simples dont 1 lit tiroir (3 couchages)",
-          "🛁 Salle de bain moderne",
-          "❄️ Climatisation",
-          "🍽️ Cuisine entièrement équipée",
-          "🛋️ Salon spacieux & élégant",
-          "🌅 Grande terrasse pour se détendre",
-          "🛡️ Résidence calme & sécurisée"
+          "2 chambres confortables",
+          "Chambre 1 : lit double",
+          "Chambre 2 : 2 lits simples dont 1 lit tiroir (3 couchages)",
+          "Salle de bain moderne",
+          "Climatisation",
+          "Cuisine entièrement équipée",
+          "Salon spacieux & élégant",
+          "Grande terrasse pour se détendre",
+          "Résidence calme & sécurisée"
         ]
       }
     },
@@ -423,12 +423,12 @@ const translations = {
         shortDescription: "Modern, licht en ruim appartement, ideaal voor een comfortabel verblijf met familie of vrienden.",
         description: "Modern, licht en ruim appartement, ideaal voor een comfortabel verblijf met familie of vrienden. Op steenworp afstand van het nieuwe busstation, winkels, cafés en de belangrijkste uitvalswegen van de stad.",
         features: [
-          "🛏 2 comfortabele slaapkamers",
-          "🛁 Moderne badkamer",
-          "🍽 Volledig uitgeruste keuken",
-          "🛋 Ruime & elegante woonkamer",
-          "🚗 Ondergrondse parkeergarage",
-          "🛡 Rustige & beveiligde residentie"
+          "2 comfortabele slaapkamers",
+          "Moderne badkamer",
+          "Volledig uitgeruste keuken",
+          "Ruime & elegante woonkamer",
+          "Ondergrondse parkeergarage",
+          "Rustige & beveiligde residentie"
         ]
       },
       2: {
@@ -437,12 +437,12 @@ const translations = {
         shortDescription: "Centraal en praktisch appartement, direct nabij winkels, cafés en openbaar vervoer.",
         description: "Centraal en praktisch appartement, direct nabij winkels, cafés en openbaar vervoer.",
         features: [
-          "🛏️ 2 slaapkamers",
-          "🛋️ Comfortabele woonkamer",
-          "🍽️ Uitgeruste keuken met bar",
-          "🚿 Badkamer met wasmachine",
-          "🌿 Fijn balkonnetje",
-          "🅿️ Parkeren op straat"
+          "2 slaapkamers",
+          "Comfortabele woonkamer",
+          "Uitgeruste keuken met bar",
+          "Badkamer met wasmachine",
+          "Fijn balkonnetje",
+          "Parkeren op straat"
         ]
       },
       3: {
@@ -451,13 +451,13 @@ const translations = {
         shortDescription: "Modern appartement op 10 min van het centrum, in een recente residentie, perfect voor een rustig en goed gelegen verblijf.",
         description: "Modern appartement op 10 min van het centrum, in een recente residentie, perfect voor een rustig en goed gelegen verblijf.",
         features: [
-          "🛏️ 2 slaapkamers",
-          "– Slaapkamer 1: Tweepersoonsbed",
-          "– Slaapkamer 2: 2 eenpersoonsbedden (incl. uitschuifbed)",
-          "🚿 Badkamer met inloopdouche",
-          "🍽️ Volledig uitgeruste keuken",
-          "📺 Lichte en comfortabele woonkamer",
-          "🅿️ Parkeren op straat"
+          "2 slaapkamers",
+          "Slaapkamer 1: Tweepersoonsbed",
+          "Slaapkamer 2: 2 eenpersoonsbedden (incl. uitschuifbed)",
+          "Badkamer met inloopdouche",
+          "Volledig uitgeruste keuken",
+          "Lichte en comfortabele woonkamer",
+          "Parkeren op straat"
         ]
       },
       4: {
@@ -466,14 +466,14 @@ const translations = {
         shortDescription: "Licht appartement met groot terras & zwembad, ideaal voor een rustig verblijf aan zee.",
         description: "Licht appartement met groot terras & zwembad, ideaal voor een rustig verblijf aan zee.",
         features: [
-          "🛏️ 2 comfortabele slaapkamers",
-          "🚿 2 badkamers met inloopdouche",
-          "❄️ Airconditioning",
-          "🍽️ Volledig uitgeruste keuken",
-          "🛋️ Ruime en elegante woonkamer",
-          "🪴 Terras perfect om te ontspannen",
-          "🚗 Privé garage",
-          "🛡️ 24/7 Beveiligde residentie"
+          "2 comfortabele slaapkamers",
+          "2 badkamers met inloopdouche",
+          "Airconditioning",
+          "Volledig uitgeruste keuken",
+          "Ruime en elegante woonkamer",
+          "Terras perfect om te ontspannen",
+          "Privé garage",
+          "24/7 Beveiligde residentie"
         ]
       },
       5: {
@@ -485,12 +485,12 @@ const translations = {
           "🛏️ 2 comfortabele slaapkamers",
           "– Slaapkamer 1: Tweepersoonsbed",
           "– Slaapkamer 2: 2 eenpersoonsbedden (incl. uitschuifbed)",
-          "🛁 Moderne badkamer",
-          "❄️ Airconditioning",
-          "🍽️ Volledig uitgeruste keuken",
-          "🛋️ Ruime & elegante woonkamer",
-          "🌅 Groot terras om te ontspannen",
-          "🛡️ Rustige & beveiligde residentie"
+          "Moderne badkamer",
+          "Airconditioning",
+          "Volledig uitgeruste keuken",
+          "Ruime & elegante woonkamer",
+          "Groot terras om te ontspannen",
+          "Rustige & beveiligde residentie"
         ]
       }
     },

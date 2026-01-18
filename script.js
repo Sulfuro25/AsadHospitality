@@ -69,7 +69,7 @@
         // We can store it on the modal element itself.
         var currentApt = modal.getAttribute("data-current-apt");
         if (currentApt) {
-            openPropertyModal(currentApt);
+          openPropertyModal(currentApt);
         }
       }
     });
@@ -163,23 +163,81 @@
     });
   });
 
-  // Contact form — basic handling
+  // ============================================================
+  // GESTION DES NOTIFICATIONS (TOASTS)
+  // ============================================================
+  function showToast(message, type = 'success') {
+    const toast = document.getElementById('notification-toast');
+    const toastMessage = document.getElementById('toast-message');
+    const toastIcon = document.getElementById('toast-icon');
+
+    // 1. On remplit le message
+    toastMessage.textContent = message;
+
+    // 2. On change l'icône et la couleur selon le type
+    if (type === 'success') {
+      toast.classList.remove('error');
+      toastIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+    } else {
+      toast.classList.add('error');
+      toastIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+    }
+
+    // 3. On affiche (Ajoute la classe .show)
+    toast.classList.add('show');
+
+    // 4. On cache automatiquement après 5 secondes
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 5000);
+  }
+
+  // ============================================================
+  // FORMULAIRE DE CONTACT (FormSubmit + Toasts)
+  // ============================================================
   var form = document.querySelector(".contact-form");
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var name = form.querySelector("#name").value;
-      var phone = form.querySelector("#phone").value;
-      var location = form.querySelector("#location").value;
-      if (name && phone && location) {
-        var messages = {
-          en: "Thank you, " + name + ". We'll contact you soon with your free revenue estimate.",
-          fr: "Merci, " + name + ". Nous vous contacterons bientôt avec votre estimation gratuite.",
-          nl: "Bedankt, " + name + ". We nemen binnenkort contact met u op met uw gratis inkomensschatting."
-        };
-        alert(messages[currentLang] || messages.en);
-        form.reset();
-      }
+
+      var btn = form.querySelector("button[type='submit']");
+      var originalBtnText = btn.innerText;
+
+      // Feedback : Bouton en chargement
+      btn.innerText = "Sending...";
+      btn.disabled = true;
+      btn.style.opacity = "0.7";
+
+      var formData = new FormData(form);
+
+      // Envoi vers FormSubmit
+      fetch("https://formsubmit.co/ajax/", { //info@asadhospitality.ma
+        method: "POST",
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          // SUCCÈS : On affiche le Toast au lieu de l'alerte
+          var messages = {
+            en: "Message sent! We'll contact you shortly.",
+            fr: "Message envoyé ! Nous vous contacterons bientôt.",
+            nl: "Bericht verzonden! We nemen spoedig contact op."
+          };
+          showToast(messages[currentLang] || messages.en, 'success');
+
+          form.reset(); // Vide les champs
+        })
+        .catch(error => {
+          // ERREUR : Toast d'erreur
+          console.log(error);
+          showToast("Connection error. Please try again.", 'error');
+        })
+        .finally(() => {
+          // On remet le bouton normal
+          btn.innerText = originalBtnText;
+          btn.disabled = false;
+          btn.style.opacity = "1";
+        });
     });
   }
 
@@ -189,7 +247,7 @@
   var modalMainImg = document.getElementById("modal-main-img");
   var modalThumbnails = document.getElementById("modal-thumbnails");
   var modalInfo = document.getElementById("modal-info");
-  
+
   // Navigation arrows
   var modalPrev = document.querySelector(".modal-prev");
   var modalNext = document.querySelector(".modal-next");
@@ -202,63 +260,63 @@
     4: { images: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
     5: { images: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
   };
-  
+
   var currentModalImageIndex = 0;
   var currentAptImages = [];
   var currentAptNum = 0;
 
- function setMainImage(imgNum) {
-      // Find index of this imgNum in currentAptImages
-      var idx = currentAptImages.indexOf(imgNum);
-      if (idx !== -1) {
-          currentModalImageIndex = idx;
-          
-          // ANIMATION LOGIC:
-          // 1. Remove fade class
-          modalMainImg.classList.remove('fade');
-          // 2. Trigger reflow (browser repaint) so animation restarts
-          void modalMainImg.offsetWidth; 
-          // 3. Add fade class back
-          modalMainImg.classList.add('fade');
-          
-          // Set source
-          modalMainImg.src = "img/Appartment_" + currentAptNum + "/" + imgNum + ".jpg";
-          
-          // Update thumbnails
-          modalThumbnails.querySelectorAll("img").forEach(function (img, i) {
-            var isActive = (i === idx);
-            img.classList.toggle("active", isActive);
-            
-            // Auto-scroll the thumbnail strip to keep active image in view
-            if (isActive) {
-                img.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            }
-          });
-      }
+  function setMainImage(imgNum) {
+    // Find index of this imgNum in currentAptImages
+    var idx = currentAptImages.indexOf(imgNum);
+    if (idx !== -1) {
+      currentModalImageIndex = idx;
+
+      // ANIMATION LOGIC:
+      // 1. Remove fade class
+      modalMainImg.classList.remove('fade');
+      // 2. Trigger reflow (browser repaint) so animation restarts
+      void modalMainImg.offsetWidth;
+      // 3. Add fade class back
+      modalMainImg.classList.add('fade');
+
+      // Set source
+      modalMainImg.src = "img/Appartment_" + currentAptNum + "/" + imgNum + ".jpg";
+
+      // Update thumbnails
+      modalThumbnails.querySelectorAll("img").forEach(function (img, i) {
+        var isActive = (i === idx);
+        img.classList.toggle("active", isActive);
+
+        // Auto-scroll the thumbnail strip to keep active image in view
+        if (isActive) {
+          img.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      });
+    }
   }
 
   function nextImage() {
-      currentModalImageIndex = (currentModalImageIndex + 1) % currentAptImages.length;
-      setMainImage(currentAptImages[currentModalImageIndex]);
+    currentModalImageIndex = (currentModalImageIndex + 1) % currentAptImages.length;
+    setMainImage(currentAptImages[currentModalImageIndex]);
   }
 
   function prevImage() {
-      currentModalImageIndex = (currentModalImageIndex - 1 + currentAptImages.length) % currentAptImages.length;
-      setMainImage(currentAptImages[currentModalImageIndex]);
+    currentModalImageIndex = (currentModalImageIndex - 1 + currentAptImages.length) % currentAptImages.length;
+    setMainImage(currentAptImages[currentModalImageIndex]);
   }
 
   function openPropertyModal(aptNum) {
     var rawData = propertyIds[aptNum];
     if (!rawData) return;
-    
+
     // Get translated content
     var transData = translations[currentLang].propertiesData[aptNum];
     if (!transData) return;
 
     currentAptNum = aptNum;
     currentAptImages = rawData.images;
-    currentModalImageIndex = 0; // Reset to first image
-    
+    currentModalImageIndex = 0;
+
     // Store current apt for language switching
     modal.setAttribute("data-current-apt", aptNum);
 
@@ -310,16 +368,16 @@
 
   // Modal Arrow Events
   if (modalPrev) {
-      modalPrev.addEventListener("click", function(e) {
-          e.stopPropagation(); // Prevent modal close
-          prevImage();
-      });
+    modalPrev.addEventListener("click", function (e) {
+      e.stopPropagation(); // Prevent modal close
+      prevImage();
+    });
   }
   if (modalNext) {
-      modalNext.addEventListener("click", function(e) {
-          e.stopPropagation(); // Prevent modal close
-          nextImage();
-      });
+    modalNext.addEventListener("click", function (e) {
+      e.stopPropagation(); // Prevent modal close
+      nextImage();
+    });
   }
 
   // Close modal
@@ -343,8 +401,8 @@
     }
     // Arrow keys for gallery
     if (modal.classList.contains("active")) {
-        if (e.key === "ArrowLeft") prevImage();
-        if (e.key === "ArrowRight") nextImage();
+      if (e.key === "ArrowLeft") prevImage();
+      if (e.key === "ArrowRight") nextImage();
     }
   });
 })();
