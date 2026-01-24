@@ -586,26 +586,39 @@ h3 {
 
 .modal-close {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.1);
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  background: var(--white);
   color: var(--navy);
   border-radius: 50%;
-  border: none;
+  border: 1px solid rgba(15, 24, 41, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 100;
-  transition: var(--transition);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.modal-close svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.4s ease;
 }
 
 .modal-close:hover {
   background: var(--navy);
   color: var(--white);
-  transform: rotate(90deg);
+  border-color: var(--navy);
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 8px 20px rgba(15, 24, 41, 0.2);
+}
+
+.modal-close:active {
+  transform: rotate(90deg) scale(0.95);
 }
 
 /* Gallery Side (Left) */
@@ -624,12 +637,31 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #000;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+/* Background blur effect for mixed aspect ratios */
+.modal-main-image::before {
+  content: "";
+  position: absolute;
+  inset: -20px;
+  background-image: inherit;
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px) brightness(0.6);
+  z-index: 0;
 }
 
 .modal-main-image img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  position: relative;
+  z-index: 1;
+  /* Above the blur */
 }
 
 .modal-main-image img.fade {
@@ -723,37 +755,92 @@ h3 {
 
 /* Info Side (Right) */
 .modal-info {
-  padding: 2.5rem;
+  padding: 3rem;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background: var(--white);
+}
+
+.modal-info-header {
+  border-bottom: 1px solid rgba(15, 24, 41, 0.08);
+  padding-bottom: 1.5rem;
 }
 
 .modal-info h3 {
-  font-size: 2rem;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
   margin-bottom: 0.5rem;
   color: var(--navy);
+  font-weight: 700;
 }
 
 .modal-info .property-location {
-  font-size: 1rem;
-  padding-bottom: 1rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid #eee;
-  display: block;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gold);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-info .property-location::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+
+.modal-description-wrap {
+  line-height: 1.7;
+  color: var(--navy-muted);
+}
+
+.modal-description-wrap h4 {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+  color: var(--gray);
 }
 
 .modal-info .property-features {
   display: grid;
-  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
 }
 
 .modal-info .property-features li {
-  background: #f4f6f8;
-  padding: 10px 15px;
-  border-radius: 6px;
-  font-size: 0.95rem;
+  background: var(--sand-light);
+  padding: 12px 16px;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.9rem;
   color: var(--navy);
   display: flex;
   align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(196, 163, 90, 0.1);
+  transition: all 0.3s ease;
+}
+
+.modal-info .property-features li:hover {
+  background: var(--white);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(196, 163, 90, 0.15);
+}
+
+.modal-info .property-features li svg {
+  width: 18px;
+  height: 18px;
+  color: var(--gold);
+  flex-shrink: 0;
 }
 
 /* 9. SERVICES
@@ -922,8 +1009,16 @@ h3 {
 
 .contact-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: 1.3fr 0.7fr;
   gap: 3rem;
+  align-items: start;
+  /* Prevents stretching */
+}
+
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .contact-form-wrap {
@@ -940,7 +1035,8 @@ h3 {
   color: var(--navy);
 }
 
-.contact-form input {
+.contact-form input,
+.contact-form textarea {
   width: 100%;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -948,22 +1044,69 @@ h3 {
   border-radius: var(--border-radius-sm);
   background: #f9f9f9;
   font-family: var(--font-sans);
+  transition: all 0.3s ease;
 }
 
-.contact-form input:focus {
+.contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
   outline: none;
   border-color: var(--gold);
   background: #fff;
+  box-shadow: 0 0 0 4px rgba(196, 163, 90, 0.1);
+}
+
+.phone-input-wrap {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* Ensure intl-tel-input takes full width */
+.iti {
+  width: 100%;
+}
+
+.iti__country-list {
+  background-color: var(--white);
+  border-radius: var(--border-radius-sm);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  font-family: var(--font-sans);
+  z-index: 1000;
+}
+
+.iti__flag-container {
+  padding: 2px;
+}
+
+#phone {
+  width: 100%;
+}
+
+/* Adjust for separate dial code layout to avoid overlap */
+.iti--separate-dial-code #phone {
+  padding-left: 95px !important;
+  /* Increased space for flag + dial code */
+}
+
+.iti--separate-dial-code .iti__selected-dial-code {
+  margin-left: 8px;
+  font-weight: 600;
+  color: var(--navy);
 }
 
 .contact-info {
   background: var(--navy);
   color: var(--white);
-  padding: 2.5rem;
+  padding: 3rem 2.5rem;
   border-radius: var(--border-radius-lg);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  box-shadow: 0 20px 40px rgba(15, 24, 41, 0.15);
 }
 
 .contact-info h3 {
@@ -1037,56 +1180,60 @@ h3 {
    NOTIFICATIONS (TOASTS)
    =============================== */
 .toast {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background-color: var(--navy); /* Bleu marine */
-    color: var(--white);
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    z-index: 9999;
-    
-    /* Animation : Caché par défaut */
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Effet rebond */
-    pointer-events: none;
-    border-left: 4px solid var(--gold); /* Touche dorée */
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: var(--navy);
+  /* Bleu marine */
+  color: var(--white);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 9999;
+
+  /* Animation : Caché par défaut */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  /* Effet rebond */
+  pointer-events: none;
+  border-left: 4px solid var(--gold);
+  /* Touche dorée */
 }
 
 .toast.show {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 /* Style spécifique pour l'erreur */
 .toast.error {
-    border-left-color: #e74c3c; /* Rouge si erreur */
+  border-left-color: #e74c3c;
+  /* Rouge si erreur */
 }
 
 #toast-icon {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 #toast-message {
-    margin: 0;
-    font-size: 0.95rem;
-    font-weight: 500;
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 
 /* Mobile : Centré en bas */
 @media (max-width: 480px) {
-    .toast {
-        left: 20px;
-        right: 20px;
-        bottom: 20px;
-        justify-content: center;
-    }
+  .toast {
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    justify-content: center;
+  }
 }
 
 
@@ -1120,24 +1267,100 @@ h3 {
   /* MODAL: Fullscreen Stack */
   .modal-content {
     grid-template-columns: 1fr;
-    grid-template-rows: 40vh 1fr;
-    /* Image 40% height, Text rest */
-    height: 100%;
+    grid-template-rows: 45vh 1fr;
+    /* Slightly taller image for better impact */
+    height: 100vh;
     width: 100%;
     border-radius: 0;
+    max-height: 100vh;
+  }
+
+  .modal-gallery {
+    height: 45vh;
+    background: #000;
+  }
+
+  .modal-main-image img {
+    object-fit: contain;
+    /* Back to contain to prevent zooming/blurriness */
+  }
+
+  .modal-thumbnails {
+    display: none;
+    /* Hide thumbnails to save vertical space on mobile */
   }
 
   .modal-close {
-    position: fixed;
-    /* Stick to screen */
+    position: absolute;
+    /* Keep it relative to the gallery/top */
     top: 15px;
     right: 15px;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: var(--white);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 44px;
+    height: 44px;
+    z-index: 1000;
   }
 
   .modal-info {
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
+    gap: 1.5rem;
+    background: var(--white);
+    border-top-left-radius: 24px;
+    /* Rounded top for info section */
+    border-top-right-radius: 24px;
+    margin-top: -24px;
+    /* Pull up to overlap image slightly */
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .modal-info h3 {
+    font-size: 1.5rem;
+  }
+
+  .modal-info .property-features {
+    grid-template-columns: 1fr;
+    /* Single column for features */
+    gap: 0.75rem;
+  }
+
+  .modal-info .property-features li {
+    padding: 10px 14px;
+  }
+
+  .modal-description-wrap h4,
+  .modal-features-wrap h4 {
+    font-size: 0.95rem;
+    /* Better labels for mobile */
+    margin-bottom: 0.75rem;
+    color: var(--navy);
+    opacity: 0.7;
+  }
+
+  .modal-info {
+    padding-bottom: 5rem;
+    /* More space at bottom for scrolling comfort */
+  }
+
+  /* Arrows placement on mobile image */
+  .modal-nav {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--navy);
+    opacity: 1;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .modal-prev {
+    left: 10px;
+  }
+
+  .modal-next {
+    right: 10px;
   }
 }
 

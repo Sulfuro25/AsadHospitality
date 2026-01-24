@@ -6,13 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="Asad Hospitality — Premium Airbnb concierge and short-term rental management in Tangier, Morocco. Maximize your rental income without the stress.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Asad Hospitality | Premium Airbnb Concierge — Tangier">
+    <meta property="og:description"
+        content="Maximize your rental income in Tangier without the stress. Full management services for owners.">
+    <meta property="og:url" content="https://www.asadhospitality.ma/">
+    <meta property="og:image" content="img/Appartment_1/1.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Asad Hospitality | Tangier">
+    <meta name="twitter:description" content="Premium Airbnb concierge and rental management in Tangier.">
+    <meta name="twitter:image" content="img/Appartment_1/1.jpg">
+
+    <link rel="icon" type="image/png" href="img/logo.png">
+
     <title>Asad Hospitality | Premium Airbnb Concierge & Rental Management — Tangier, Morocco</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <!-- Fancy Phone Input -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/css/intlTelInput.css">
 </head>
 
 <body>
@@ -137,7 +154,8 @@
             <div class="properties-grid">
                 <article class="property-card">
                     <div class="property-image-wrapper">
-                        <img src="img/Appartment_1/1.jpg" alt="Résidence Moderne" class="property-image">
+                        <img src="img/Appartment_1/1.jpg" alt="Résidence Moderne" class="property-image" loading="lazy"
+                            width="600" height="400">
                         <div class="property-overlay">
                             <button class="property-view-btn" data-apt="1">View Gallery</button>
                         </div>
@@ -159,7 +177,8 @@
 
                 <article class="property-card">
                     <div class="property-image-wrapper">
-                        <img src="img/Appartment_2/1.jpg" alt="Quartier Mosquée Badr" class="property-image">
+                        <img src="img/Appartment_2/1.jpg" alt="Quartier Mosquée Badr" class="property-image"
+                            loading="lazy" width="600" height="400">
                         <div class="property-overlay">
                             <button class="property-view-btn" data-apt="2">View Gallery</button>
                         </div>
@@ -180,7 +199,8 @@
 
                 <article class="property-card">
                     <div class="property-image-wrapper">
-                        <img src="img/Appartment_3/1.jpg" alt="Résidence Alhambra" class="property-image">
+                        <img src="img/Appartment_3/1.jpg" alt="Résidence Alhambra" class="property-image" loading="lazy"
+                            width="600" height="400">
                         <div class="property-overlay">
                             <button class="property-view-btn" data-apt="3">View Gallery</button>
                         </div>
@@ -201,7 +221,8 @@
 
                 <article class="property-card">
                     <div class="property-image-wrapper">
-                        <img src="img/Appartment_4/1.jpg" alt="Quartier Ghandouri" class="property-image">
+                        <img src="img/Appartment_4/1.jpg" alt="Quartier Ghandouri" class="property-image" loading="lazy"
+                            width="600" height="400">
                         <div class="property-overlay">
                             <button class="property-view-btn" data-apt="4">View Gallery</button>
                         </div>
@@ -221,7 +242,8 @@
 
                 <article class="property-card">
                     <div class="property-image-wrapper">
-                        <img src="img/Appartment_5/1.jpg" alt="Résidence Moderne - Stade" class="property-image">
+                        <img src="img/Appartment_5/1.jpg" alt="Résidence Moderne - Stade" class="property-image"
+                            loading="lazy" width="600" height="400">
                         <div class="property-overlay">
                             <button class="property-view-btn" data-apt="5">View Gallery</button>
                         </div>
@@ -245,7 +267,13 @@
 
     <div id="property-modal" class="property-modal">
         <div class="modal-content">
-            <button class="modal-close" aria-label="Close">&times;</button>
+            <button class="modal-close" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
             <div class="modal-gallery">
                 <div class="modal-main-image">
                     <img id="modal-main-img" src="" alt="Property view">
@@ -383,24 +411,32 @@
                 <p class="contact-intro" data-translate="contact.intro">Tell us about your property and we'll show you
                     its earning potential.</p>
 
-                <form class="contact-form" action="https://formsubmit.co/info@asadhospitality.ma" method="POST">
+                <form class="contact-form" id="contactForm">
 
-                    <input type="hidden" name="_captcha" value="false"> <input type="hidden" name="_template"
-                        value="table"> <input type="text" name="_honey" style="display:none"> <input type="hidden"
-                        name="_next" value=""> <label for="name" data-translate="contact.form.name">Name</label>
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="text" name="_honey" style="display:none">
+
+                    <label for="name" data-translate="contact.form.name">Name</label>
                     <input type="text" id="name" name="name" required
                         data-translate-placeholder="contact.form.namePlaceholder" placeholder="Your name"
                         autocomplete="name">
 
                     <label for="phone" data-translate="contact.form.phone">Phone</label>
-                    <input type="tel" id="phone" name="phone" required
-                        data-translate-placeholder="contact.form.phonePlaceholder" placeholder="+212 6XX XXX XXX"
-                        autocomplete="tel">
+                    <div class="phone-input-wrap">
+                        <input type="tel" id="phone" name="phone" required
+                            data-translate-placeholder="contact.form.phonePlaceholder" placeholder="6XX XXX XXX">
+                    </div>
 
                     <label for="location" data-translate="contact.form.location">Property Location</label>
                     <input type="text" id="location" name="location" required
                         data-translate-placeholder="contact.form.locationPlaceholder"
                         placeholder="e.g. Tangier, Marina, Old Medina" autocomplete="street-address">
+
+                    <label for="message" data-translate="contact.form.message">Message (Optional)</label>
+                    <textarea id="message" name="message" rows="4"
+                        data-translate-placeholder="contact.form.messagePlaceholder"
+                        placeholder="Tell us more about your project..."></textarea>
 
                     <button type="submit" class="btn btn-primary btn-full" data-translate="contact.form.submit">Request
                         Free Estimate</button>
@@ -454,12 +490,13 @@
             </div>
         </div>
     </footer>
-    
+
     <div id="notification-toast" class="toast">
         <span id="toast-icon"></span>
         <p id="toast-message"></p>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/intlTelInput.min.js"></script>
     <script src="translations.js"></script>
     <script src="script.js"></script>
 </body>

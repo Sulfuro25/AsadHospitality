@@ -7,12 +7,12 @@
   "use strict";
 
   // Footer year
-  var yearEl = document.getElementById("year");
+  let yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // Language switching
-  var currentLang = localStorage.getItem("asadLang") || "en";
-  var htmlEl = document.documentElement;
+  let currentLang = localStorage.getItem("asadLang") || "en";
+  let htmlEl = document.documentElement;
 
   function getNestedValue(obj, path) {
     return path.split(".").reduce(function (o, p) {
@@ -28,8 +28,8 @@
 
     // Update all elements with data-translate
     document.querySelectorAll("[data-translate]").forEach(function (el) {
-      var key = el.getAttribute("data-translate");
-      var text = getNestedValue(translations[lang], key);
+      let key = el.getAttribute("data-translate");
+      let text = getNestedValue(translations[lang], key);
       if (text) {
         el.textContent = text;
       }
@@ -37,8 +37,8 @@
 
     // Update placeholders
     document.querySelectorAll("[data-translate-placeholder]").forEach(function (el) {
-      var key = el.getAttribute("data-translate-placeholder");
-      var text = getNestedValue(translations[lang], key);
+      let key = el.getAttribute("data-translate-placeholder");
+      let text = getNestedValue(translations[lang], key);
       if (text) {
         el.placeholder = text;
       }
@@ -60,14 +60,14 @@
   // Language switcher buttons
   document.querySelectorAll(".lang-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      var lang = this.getAttribute("data-lang");
+      let lang = this.getAttribute("data-lang");
       translatePage(lang);
       // If modal is open, re-render it with new language
-      var modal = document.getElementById("property-modal");
+      let modal = document.getElementById("property-modal");
       if (modal && modal.classList.contains("active")) {
         // We need to know which property is open. 
         // We can store it on the modal element itself.
-        var currentApt = modal.getAttribute("data-current-apt");
+        let currentApt = modal.getAttribute("data-current-apt");
         if (currentApt) {
           openPropertyModal(currentApt);
         }
@@ -76,8 +76,8 @@
   });
 
   // Mobile nav toggle
-  var navToggle = document.querySelector(".nav-toggle");
-  var navLinks = document.querySelector(".nav-links");
+  let navToggle = document.querySelector(".nav-toggle");
+  let navLinks = document.querySelector(".nav-links");
   if (navToggle && navLinks) {
     navToggle.addEventListener("click", function () {
       navLinks.classList.toggle("open");
@@ -93,14 +93,14 @@
   }
 
   // Testimonial carousel
-  var testimonials = document.querySelectorAll(".testimonial");
-  var dots = document.querySelectorAll(".carousel-dots .dot");
-  var prevBtn = document.querySelector(".carousel-prev");
-  var nextBtn = document.querySelector(".carousel-next");
+  let testimonials = document.querySelectorAll(".testimonial");
+  let dots = document.querySelectorAll(".carousel-dots .dot");
+  let prevBtn = document.querySelector(".carousel-prev");
+  let nextBtn = document.querySelector(".carousel-next");
 
   if (testimonials.length > 0) {
-    var current = 0;
-    var total = testimonials.length;
+    let current = 0;
+    let total = testimonials.length;
 
     function goTo(index) {
       current = (index + total) % total;
@@ -132,12 +132,12 @@
     });
 
     // Optional: auto-advance carousel
-    var carouselInterval = setInterval(function () {
+    let carouselInterval = setInterval(function () {
       goTo(current + 1);
     }, 6000);
 
     // Pause on hover
-    var carousel = document.querySelector(".testimonial-carousel");
+    let carousel = document.querySelector(".testimonial-carousel");
     if (carousel) {
       carousel.addEventListener("mouseenter", function () {
         clearInterval(carouselInterval);
@@ -153,9 +153,9 @@
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener("click", function (e) {
-      var targetId = this.getAttribute("href");
+      let targetId = this.getAttribute("href");
       if (targetId === "#") return;
-      var target = document.querySelector(targetId);
+      let target = document.querySelector(targetId);
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -192,68 +192,81 @@
     }, 5000);
   }
 
+  // Fancy Phone Input Initialization
+  const phoneInput = document.querySelector("#phone");
+  let iti = null;
+  if (phoneInput && window.intlTelInput) {
+    iti = window.intlTelInput(phoneInput, {
+      initialCountry: "ma",
+      preferredCountries: ["ma", "be", "nl", "fr", "gb"],
+      separateDialCode: true,
+      utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/utils.js",
+    });
+  }
+
   // ============================================================
   // FORMULAIRE DE CONTACT (FormSubmit + Toasts)
   // ============================================================
-  var form = document.querySelector(".contact-form");
+  // 5. Contact Form (Secure)
+  const form = document.querySelector(".contact-form");
   if (form) {
-    form.addEventListener("submit", function (e) {
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      var btn = form.querySelector("button[type='submit']");
-      var originalBtnText = btn.innerText;
+      const btn = form.querySelector("button[type='submit']");
+      const originalBtnText = btn.innerText;
 
-      // Feedback : Bouton en chargement
       btn.innerText = "Sending...";
       btn.disabled = true;
-      btn.style.opacity = "0.7";
 
-      var formData = new FormData(form);
+      const formData = new FormData(form);
 
-      // Envoi vers FormSubmit
-      fetch("https://formsubmit.co/ajax/", { //info@asadhospitality.ma
+      // Get the full international number
+      if (iti) {
+        formData.set("phone", iti.getNumber());
+      }
+
+      // C'EST ICI LA SÉCURITÉ : L'email est défini dans le JS, pas dans le HTML
+      const targetEmail = "fadilx4@gmail.com";
+
+      fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
         method: "POST",
         body: formData
       })
         .then(response => response.json())
         .then(data => {
-          // SUCCÈS : On affiche le Toast au lieu de l'alerte
-          var messages = {
-            en: "Message sent! We'll contact you shortly.",
-            fr: "Message envoyé ! Nous vous contacterons bientôt.",
-            nl: "Bericht verzonden! We nemen spoedig contact op."
+          const messages = {
+            en: "Thank you! We'll contact you soon.",
+            fr: "Merci ! Nous vous contacterons bientôt.",
+            nl: "Bedankt! We nemen binnenkort contact op."
           };
           showToast(messages[currentLang] || messages.en, 'success');
-
-          form.reset(); // Vide les champs
+          form.reset();
         })
         .catch(error => {
-          // ERREUR : Toast d'erreur
-          console.log(error);
+          console.error(error);
           showToast("Connection error. Please try again.", 'error');
         })
         .finally(() => {
-          // On remet le bouton normal
           btn.innerText = originalBtnText;
           btn.disabled = false;
-          btn.style.opacity = "1";
         });
     });
   }
 
   // Property modal functionality
-  var modal = document.getElementById("property-modal");
-  var modalClose = document.querySelector(".modal-close");
-  var modalMainImg = document.getElementById("modal-main-img");
-  var modalThumbnails = document.getElementById("modal-thumbnails");
-  var modalInfo = document.getElementById("modal-info");
+  let modal = document.getElementById("property-modal");
+  let modalClose = document.querySelector(".modal-close");
+  let modalMainImg = document.getElementById("modal-main-img");
+  let modalThumbnails = document.getElementById("modal-thumbnails");
+  let modalInfo = document.getElementById("modal-info");
 
   // Navigation arrows
-  var modalPrev = document.querySelector(".modal-prev");
-  var modalNext = document.querySelector(".modal-next");
+  let modalPrev = document.querySelector(".modal-prev");
+  let modalNext = document.querySelector(".modal-next");
 
   // Property data structure (text content moved to translations.js)
-  var propertyIds = {
+  let propertyIds = {
     1: { images: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
     2: { images: [1, 2, 3, 4, 5, 6, 7, 8, 9] },
     3: { images: [1, 2, 3, 4, 5, 6, 7, 8] },
@@ -261,13 +274,13 @@
     5: { images: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
   };
 
-  var currentModalImageIndex = 0;
-  var currentAptImages = [];
-  var currentAptNum = 0;
+  let currentModalImageIndex = 0;
+  let currentAptImages = [];
+  let currentAptNum = 0;
 
   function setMainImage(imgNum) {
     // Find index of this imgNum in currentAptImages
-    var idx = currentAptImages.indexOf(imgNum);
+    let idx = currentAptImages.indexOf(imgNum);
     if (idx !== -1) {
       currentModalImageIndex = idx;
 
@@ -280,11 +293,18 @@
       modalMainImg.classList.add('fade');
 
       // Set source
-      modalMainImg.src = "img/Appartment_" + currentAptNum + "/" + imgNum + ".jpg";
+      const imgSrc = "img/Appartment_" + currentAptNum + "/" + imgNum + ".jpg";
+      modalMainImg.src = imgSrc;
+
+      // Sync blurred background (Cinema Effect)
+      const mainImageContainer = modalMainImg.parentElement;
+      if (mainImageContainer) {
+        mainImageContainer.style.backgroundImage = `url('${imgSrc}')`;
+      }
 
       // Update thumbnails
       modalThumbnails.querySelectorAll("img").forEach(function (img, i) {
-        var isActive = (i === idx);
+        let isActive = (i === idx);
         img.classList.toggle("active", isActive);
 
         // Auto-scroll the thumbnail strip to keep active image in view
@@ -305,12 +325,57 @@
     setMainImage(currentAptImages[currentModalImageIndex]);
   }
 
+  function getFeatureIcon(text) {
+    const lower = text.toLowerCase();
+
+    // Bedroom
+    if (lower.includes("bedroom") || lower.includes("chambre") || lower.includes("slaapkamer") || lower.includes("lit") || lower.includes("bed")) {
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>`;
+    }
+    // Bathroom
+    if (lower.includes("bath") || lower.includes("salle de bain") || lower.includes("badkamer") || lower.includes("douche") || lower.includes("wash")) {
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6 7 12h14l-2-6Z"/><path d="M10 12v8"/><path d="M14 12v8"/><path d="M19 10L5 3"/><path d="m5 21 3-3V8"/><path d="M21 21L1 1"/></svg>`;
+    }
+    // Kitchen
+    if (lower.includes("kitchen") || lower.includes("cuisine") || lower.includes("keuken")) {
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>`;
+    }
+    // Parking
+    if (lower.includes("parking") || lower.includes("stationnement") || lower.includes("garage")) {
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>`;
+    }
+    // Living room
+    if (lower.includes("living") || lower.includes("salon") || lower.includes("woonkamer")) {
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><rect width="20" height="8" x="2" y="11" rx="2"/><path d="M6 11v-1"/><path d="M18 11v-1"/><path d="M2 11h20"/></svg>`;
+    }
+    // Outdoor / View / Air
+    if (lower.includes("terrace") || lower.includes("balcony") || lower.includes("balcon") || lower.includes("terrasse") || lower.includes("view") || lower.includes("vue")) {
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`;
+    }
+    // Pool / Water
+    if (lower.includes("pool") || lower.includes("piscine") || lower.includes("zwembad")) {
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C5.8 7 7 6 7 6s1.2-1 2.5-1c1.3 0 2.5 1 2.5 1s1.2 1 2.5 1c1.3 0 2.5-1 2.5-1s1.2-1 2.5-1 2.5 1 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 1.3 0 2.5-1 2.5-1s1.2-1 2.5-1c1.3 0 2.5 1 2.5 1s1.2 1 2.5 1c1.3 0 2.5-1 2.5-1s1.2-1 2.5-1 2.5 1 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 1.3 0 2.5-1 2.5-1s1.2-1 2.5-1c1.3 0 2.5 1 2.5 1s1.2 1 2.5 1c1.3 0 2.5-1 2.5-1s1.2-1 2.5-1 2.5 1 2.5 1"/></svg>`;
+    }
+    // AC / Air
+    if (lower.includes("air condition") || lower.includes("climatisation") || lower.includes("ac")) {
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M6 12V9a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3"/><path d="M12 3v4"/><path d="M9 18l-3 3"/><path d="M15 18l3 3"/></svg>`;
+    }
+    // Security
+    if (lower.includes("secure") || lower.includes("sécurisée") || lower.includes("beveiligde") || lower.includes("24/7")) {
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>`;
+    }
+
+    // Default icon (Chevron/Arrow)
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+  }
+
   function openPropertyModal(aptNum) {
-    var rawData = propertyIds[aptNum];
+    let rawData = propertyIds[aptNum];
     if (!rawData) return;
 
     // Get translated content
-    var transData = translations[currentLang].propertiesData[aptNum];
+    let transData = translations[currentLang].propertiesData[aptNum];
+    let modalLabels = translations[currentLang].modal;
     if (!transData) return;
 
     currentAptNum = aptNum;
@@ -327,7 +392,7 @@
     // Create thumbnails
     modalThumbnails.innerHTML = "";
     currentAptImages.forEach(function (imgNum) {
-      var thumb = document.createElement("img");
+      let thumb = document.createElement("img");
       thumb.src = "img/Appartment_" + aptNum + "/" + imgNum + ".jpg";
       thumb.alt = "View " + imgNum;
       thumb.addEventListener("click", function () {
@@ -338,15 +403,30 @@
     // Set active state for first thumb
     modalThumbnails.children[0].classList.add("active");
 
-    // Set info
-    modalInfo.innerHTML = "<h3>" + transData.title + "</h3>" +
-      "<p class='property-location'>" + transData.location + "</p>" +
-      "<p class='property-description'>" + transData.description + "</p>" +
-      "<ul class='property-features'>" +
-      transData.features.map(function (f) {
-        return "<li>" + f + "</li>";
-      }).join("") +
-      "</ul>";
+    // Construct Modal Info with premium structure
+    modalInfo.innerHTML = `
+      <div class="modal-info-header">
+        <h3>${transData.title}</h3>
+        <span class="property-location">${transData.location}</span>
+      </div>
+      
+      <div class="modal-description-wrap">
+        <h4>${modalLabels.description}</h4>
+        <p>${transData.description}</p>
+      </div>
+      
+      <div class="modal-features-wrap">
+        <h4>${modalLabels.features}</h4>
+        <ul class="property-features">
+          ${transData.features.map(f => `
+            <li>
+              ${getFeatureIcon(f)}
+              <span>${f}</span>
+            </li>
+          `).join("")}
+        </ul>
+      </div>
+    `;
 
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
@@ -361,7 +441,7 @@
   // Open modal on button click
   document.querySelectorAll(".property-view-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      var aptNum = this.getAttribute("data-apt");
+      let aptNum = this.getAttribute("data-apt");
       openPropertyModal(aptNum);
     });
   });

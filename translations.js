@@ -178,9 +178,12 @@ const translations = {
         name: "Name",
         namePlaceholder: "Your name",
         phone: "Phone",
-        phonePlaceholder: "+212 6XX XXX XXX",
+        phonePlaceholder: "6XX XXX XXX",
+        countryCode: "Prefix",
         location: "Property Location",
         locationPlaceholder: "e.g. Tangier, Marina, Old Medina",
+        message: "Message (Optional)",
+        messagePlaceholder: "Tell us more about your project...",
         submit: "Request Free Estimate"
       },
       contactUs: "Contact Us",
@@ -189,6 +192,10 @@ const translations = {
     },
     footer: {
       text: "Asad Hospitality. Premium Airbnb Concierge & Rental Management — Tangier, Morocco."
+    },
+    modal: {
+      description: "Description",
+      features: "Key Features"
     }
   },
   fr: {
@@ -355,9 +362,12 @@ const translations = {
         name: "Nom",
         namePlaceholder: "Votre nom",
         phone: "Téléphone",
-        phonePlaceholder: "+212 6XX XXX XXX",
+        phonePlaceholder: "6XX XXX XXX",
+        countryCode: "Préfixe",
         location: "Emplacement de la propriété",
         locationPlaceholder: "ex. Tanger, Marina, Médina",
+        message: "Message (Optionnel)",
+        messagePlaceholder: "Dites-nous en plus sur votre projet...",
         submit: "Demander une estimation gratuite"
       },
       contactUs: "Contactez-nous",
@@ -366,6 +376,10 @@ const translations = {
     },
     footer: {
       text: "Asad Hospitality. Services de conciergerie et gestion de locations Airbnb premium — Tanger, Maroc."
+    },
+    modal: {
+      description: "Description",
+      features: "Équipements clés"
     }
   },
   nl: {
@@ -532,9 +546,12 @@ const translations = {
         name: "Naam",
         namePlaceholder: "Uw naam",
         phone: "Telefoon",
-        phonePlaceholder: "+212 6XX XXX XXX",
+        phonePlaceholder: "6XX XXX XXX",
+        countryCode: "Landcode",
         location: "Eigendom locatie",
         locationPlaceholder: "bijv. Tanger, Marina, Oude Medina",
+        message: "Bericht (Optioneel)",
+        messagePlaceholder: "Vertel ons meer over uw project...",
         submit: "Vraag gratis schatting aan"
       },
       contactUs: "Neem contact op",
@@ -543,6 +560,10 @@ const translations = {
     },
     footer: {
       text: "Asad Hospitality. Premium Airbnb conciërge en verhuurbeheer — Tanger, Marokko."
+    },
+    modal: {
+      description: "Beschrijving",
+      features: "Kenmerken"
     }
   }
 };
